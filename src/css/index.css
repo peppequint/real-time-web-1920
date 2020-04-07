@@ -30,20 +30,20 @@ form button {
   padding: 10px;
 }
 
-#messages {
+.message-list {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
-#messages li {
+.message-list li {
   padding: 5px 10px;
 }
 
-#messages li:nth-child(odd) {
+.message-list li:nth-child(odd) {
   background: #eee;
 }
 
-#messages {
+.message-list {
   margin-bottom: 40px;
 }
