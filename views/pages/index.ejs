@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <%- include ('./../partials/head') %>
-</head>
-<body>
-  <header>
-    <h1>Real Time Web</h1>
-  </header>
-  <main>
-    <form action="">
-      <input id="message" autocomplete="off" type="text"><button>Send</button>
-    </form>
-  </main>
-  <footer></footer>
-  <%- include('./../partials/scripts') %>
-</body>
+  <head>
+    <%- include ('./../partials/head') %>
+  </head>
+  <body>
+    <header>
+      <h1>Real Time Web</h1>
+    </header>
+    <main>
+      <ul class="message-list"></ul>
+      <form action="">
+        <input id="message" autocomplete="off" type="text" />
+        <button>Send</button>
+      </form>
+    </main>
+    <footer></footer>
+    <%- include('./../partials/scripts') %>
+  </body>
 </html>
