@@ -21,6 +21,10 @@ app.use(routes);
 
 io.on('connection', (socket) => {
   console.log('An user is connected!');
+  socket.on('chat', (message) => {
+    console.log(message);
+    io.emit('chat', message);
+  });
 });
 
 http.listen(port, () => {
