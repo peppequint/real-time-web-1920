@@ -11,7 +11,7 @@
     "build:css": "node ./scripts/build-css.js",
     "build:js": "node ./scripts/build-js.js",
     "watch:css": "chokidar './src/css/*.css' -c 'npm run build:css'",
-    "watch:js": "chokidar './src/js/*.js' -c 'npm run build:js"
+    "watch:js": "chokidar './src/js/*.js' -c 'npm run build:js'"
   },
   "repository": {
     "type": "git",
