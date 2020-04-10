@@ -4,6 +4,8 @@
   "description": "Real time web application",
   "main": "app.js",
   "scripts": {
+    "prestart": "npm run build",
+    "start": "node app.js",
     "predev": "npm run build",
     "dev": "nodemon app.js",
     "prebuild": "rimraf ./static",
