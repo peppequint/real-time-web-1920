@@ -10,8 +10,10 @@
     "build": "npm run build:css && npm run build:js",
     "build:css": "node ./scripts/build-css.js",
     "build:js": "node ./scripts/build-js.js",
+    "build:static": "node ./scripts/build-static.js",
     "watch:css": "chokidar './src/css/*.css' -c 'npm run build:css'",
-    "watch:js": "chokidar './src/js/*.js' -c 'npm run build:js'"
+    "watch:js": "chokidar './src/js/*.js' -c 'npm run build:js'",
+    "watch:static": "chokidar './src/assets/**.*' -c 'npm run build:static'"
   },
   "repository": {
     "type": "git",
