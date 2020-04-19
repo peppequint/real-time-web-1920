@@ -35,8 +35,7 @@
     "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
     "rimraf": "^3.0.2",
-    "socket.io": "^2.3.0",
-    "spotify-web-api-node": "^4.0.0"
+    "socket.io": "^2.3.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
