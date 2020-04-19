@@ -29,11 +29,14 @@
   "homepage": "https://github.com/peppequint/real-time-web-1920#readme",
   "dependencies": {
     "chokidar-cli": "^2.1.0",
+    "cookie-parser": "^1.4.5",
     "dotenv": "^8.2.0",
     "ejs": "^3.0.2",
     "express": "^4.17.1",
     "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
+    "node-fetch": "^2.6.0",
+    "query-string": "^6.12.1",
     "rimraf": "^3.0.2",
     "socket.io": "^2.3.0"
   },
