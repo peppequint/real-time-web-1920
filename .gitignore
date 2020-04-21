@@ -2,3 +2,4 @@ node_modules
 static
 .env
 .DS_Store
+data-life-cycle-app.xd
