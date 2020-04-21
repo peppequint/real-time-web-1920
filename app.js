@@ -21,21 +21,29 @@ app.use(cookieParser());
 
 app.use(routes);
 
+let users = {};
+const rooms = [];
+
 // socket setup
 io.on('connection', (socket) => {
-  console.log('handshake made.');
+  // console.log('handshake made.');
 
   // send to the single user that's connecting
-  socket.emit('server message', 'handshake made.');
+  socket.emit('server message', 'new handshake made.');
 
-  // send to anybody except the user connecting
-  socket.broadcast.emit('message', 'a  music lover is connected.');
+  // when users connects
+  socket.on('user', (username) => {
+    users = username;
+    // console.log(users);
 
-  // runs when client disconnects
-  socket.on('disconnect', () => {
-    // send to every connected user
-    io.emit('message', 'a music lover left the application.')
-  })
+    socket.broadcast.emit('message', `${username} is connected.`);
+
+    // log says transport close left.?
+    // socket.on('disconnect', (username) => {
+    //   // send to every connected user
+    //   io.emit('message', `${username} left.`);
+    // });
+  });
 });
 
 http.listen(port, () => {
