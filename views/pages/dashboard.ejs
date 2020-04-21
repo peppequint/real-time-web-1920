@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include ('./../partials/head') %>
+  </head>
+  <body>
+    <header class="header">
+      <h1 class="header__title">Welcome <%- data.display_name %></h1>
+      <img class="header__picture" src="<%- data.images[0].url %>" alt="profile picture">
+    </header>
+    <main class="container">
+      <% genres.forEach(genre => { %>
+        <section class="tile">
+          <h1 class="tile__title"><%- genre %></h1>
+          <a href="/<%- genre %>"><button class="tile__button">Join room</button></a>
+        </section>
+      <% }) %>
+    </main>
+    <%- include('./../partials/scripts') %>
+  </body>
+</html>

@@ -29,7 +29,7 @@ async function callback(req, res) {
     res.cookie('access_token', data.access_token);
     res.cookie('refresh_token', data.refresh_token);
 
-    res.redirect('/rooms');
+    res.redirect('/dashboard');
   } catch (error) {
     console.error(error);
     res.send(error);
