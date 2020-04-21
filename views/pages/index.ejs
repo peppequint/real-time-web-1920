@@ -4,10 +4,16 @@
     <%- include ('./../partials/head') %>
   </head>
   <body>
-    <header class="header"></header>
-    <main class="container">
-      <a href="/login">
-        <button>Sign in with Spotify</button>
+    <header class="header">
+      <h1 class="header__title">Track it or crack it!</h1>
+      <span class="header__subtitle">Together</span>
+    </header>
+    <main class="container container__index">
+      <a class="login__link" href="/login">
+        <button class="login__button">
+          <img class="login__icon" src="./Spotify_Icon.png" alt="spotify icon" />
+          Sign in with Spotify
+        </button>
       </a>
     </main>
     <%- include('./../partials/scripts') %>
