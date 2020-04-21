@@ -9,13 +9,13 @@
     "predev": "npm run build",
     "dev": "nodemon app.js",
     "prebuild": "rimraf ./static",
-    "build": "npm run build:css && npm run build:js",
+    "build": "npm run build:css && npm run build:js && npm run build:img",
     "build:css": "node ./scripts/build-css.js",
     "build:js": "node ./scripts/build-js.js",
-    "build:static": "node ./scripts/build-static.js",
+    "build:img": "node ./scripts/build-img.js",
     "watch:css": "chokidar './src/css/*.css' -c 'npm run build:css'",
     "watch:js": "chokidar './src/js/*.js' -c 'npm run build:js'",
-    "watch:static": "chokidar './src/assets/**.*' -c 'npm run build:static'"
+    "watch:img": "chokidar './src/img/*.*' -c 'npm run build:img'"
   },
   "repository": {
     "type": "git",
