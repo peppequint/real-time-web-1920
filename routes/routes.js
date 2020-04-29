@@ -1,8 +1,4 @@
-const express = require('express');
-const app = express();
-
-const http = require('http').createServer(app);
-const io = require('socket.io')(http);
+const { app } = require('./../server');
 
 const index = require('./index');
 const login = require('./login');
@@ -22,4 +18,4 @@ app.get('/callback', callback);
 // detailed room
 app.get('/:room', room);
 
-module.exports = app;
+
