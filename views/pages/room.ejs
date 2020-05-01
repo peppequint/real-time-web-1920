@@ -5,7 +5,20 @@
   </head>
   <body>
     <%- include ('./../partials/header') %>
-    <main class="container"></main>
+    <main class="container container__room">
+      <aside class="search">
+        <form class="search__form" method="get" action="/search">
+          <input class="search__input" id="search__input-song" type="text" name="search" placeholder="Search a number..." autocomplete="off" />
+        </form>
+        <section class="results"></section>
+      </aside>
+      <section class="voting">
+        <h1 class="voting__heading">Up or downvote this track!</h1>
+      </section>
+      <section class="ranking">
+        <h1 class="ranking__heading"></h1>
+      </section>
+    </main>
     <%- include('./../partials/scripts') %>
   </body>
 </html>

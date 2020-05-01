@@ -1,23 +1,40 @@
-const { socket } = require('../server');
+const { io } = require('../server');
+
+let users = [];
 
 // socket setup
-socket.on('connection', (socket) => {
-  console.log('handshake made.');
+io.on('connection', (socket) => {
+  console.log(`socket created.`);
 
+  let username = 'username';
   // send to the single user that's connecting
   socket.emit('server message', 'new handshake made.');
 
-  // when users connects
-  socket.on('user', (username) => {
-    users = username;
-    // console.log(users);
+  socket.on('new user', (id) => {
+    users.push(id);
 
-    socket.broadcast.emit('message', `${username} is connected.`);
+    username = id;
 
-    // log says transport close left.?
-    socket.on('disconnect', (username) => {
-      // send to every connected user
-      socketServer.emit('message', `${username} left.`);
-    });
+    console.log(`${username} connected.`);
+
+    socket.emit('server message', `${username} has entered the application.`);
+
+    socket.emit('users list', users);
+  });
+
+  socket.on('clicked song', (id) => {
+    console.log(id);
+    socket.broadcast.emit('server message', `${id} has added to playlist`);
+  });
+
+  // disconnection
+  socket.on('disconnect', (username) => {
+    console.log(username);
+
+    console.log(`${username} has left the app.`);
+
+    console.log('users: ', users);
+
+    socket.broadcast.emit('server message', `${username} has left the application.`);
   });
 });
