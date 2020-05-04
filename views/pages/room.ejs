@@ -8,12 +8,23 @@
     <main class="container container__room">
       <aside class="search">
         <form class="search__form" method="get" action="/search">
-          <input class="search__input" id="search__input-song" type="text" name="search" placeholder="Search a number..." autocomplete="off" />
+          <input class="search__input" id="search__input-song" type="text" name="search" placeholder="Search for a track.." autocomplete="off" />
         </form>
         <section class="results"></section>
       </aside>
       <section class="voting">
-        <h1 class="voting__heading">Up or downvote this track!</h1>
+        <h2 class="voting__subtitle">
+          Up or down vote suggested
+          <span class="voting__category"><%- room %></span>
+          tracks!
+        </h2>
+        <ul class="voting__list"></ul>
+        <footer class="voting__message-box">
+          <form id="voting__form" action="">
+            <input type="text" autocomplete="off" class="voting__message" placeholder="Send a message...">
+            <button class="voting__send">Send</button>
+          </form>
+        </footer>
       </section>
       <section class="ranking">
         <h1 class="ranking__heading"></h1>
