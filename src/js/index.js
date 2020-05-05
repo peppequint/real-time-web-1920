@@ -26,8 +26,6 @@ const { username, room } = Qs.parse(location.search, {
   ignoreQueryPrefix: true,
 });
 
-console.log(username, room);
-
 socket.emit('join room', { username, room });
 
 socket.on('server message', (message) => {
@@ -69,7 +67,7 @@ socket.on('vote message', (data) => {
 socket.on('chat message', (message) => {
   const li = document.createElement('li');
 
-  const user = `<i class="bot__icon">👂 :</i>`;
+  const user = `<i class="bot__icon">Someone 👂 :</i>`;
 
   li.classList.add('voting__item');
   li.innerHTML = `${user}${message}`;
@@ -82,7 +80,7 @@ socket.on('chat message', (message) => {
 socket.on('user message', (message) => {
   const li = document.createElement('li');
 
-  const user = `<i class="bot__icon">🗣️ :</i>`;
+  const user = `<i class="bot__icon">You 🗣️ :</i>`;
 
   li.classList.add('voting__item');
   li.innerHTML = `${user}${message}`;
