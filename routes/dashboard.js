@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 
-let genres = ['deep house', 'techno', 'tech house', 'minimal', 'uk house', 'melodic house', 'disco'];
+let genres = ['deep house', 'techno', 'tech house', 'minimal', 'uk house', 'disco'];
 
 async function rooms(req, res) {
   const token = req.cookies.access_token;
@@ -22,7 +22,13 @@ async function rooms(req, res) {
 
     const data = await getProfile.json();
 
-    res.render('pages/dashboard', { data: data, genres: genres });
+    const profileObject = {
+      name: data.display_name,
+      img: data.images[0].url,
+      id: data.id,
+    };
+
+    res.render('pages/dashboard', { data: profileObject, genres: genres });
   } catch (error) {
     console.error(error);
   }
