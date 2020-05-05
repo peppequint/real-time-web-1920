@@ -88,7 +88,7 @@ header {
 
 main {
   height: 80vh;
-  padding: 2rem
+  padding: 2rem;
 }
 
 .container__index {
@@ -308,8 +308,8 @@ main {
 }
 
 .voting__list {
-    height: 83%;
-    overflow: scroll;
+  height: 83%;
+  overflow: scroll;
 }
 
 .voting__category {
@@ -319,14 +319,16 @@ main {
 }
 
 .voting__item {
-  align-items: baseline;
+  align-items: center;
   background: white;
   border-radius: 5px;
   box-shadow: var(--shadow);
+  color: var(--cl-dark-blue);
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   font-style: normal;
+  height: 60px;
   margin-bottom: 1.5rem;
   padding: 1rem 1.5rem;
   width: 100%;
@@ -338,13 +340,15 @@ main {
   margin-right: 1rem;
 }
 
-.voting__track {
+.voting__track,
+.ranking__track {
   color: var(--cl-dark-blue);
   font-weight: 900;
   margin-right: 0.5rem;
 }
 
-.voting__artist {
+.voting__artist,
+.ranking__artist {
   color: var(--cl-mid-grey);
   margin-left: 0.5rem;
 }
@@ -364,7 +368,7 @@ main {
   align-items: flex-start;
   display: flex;
   flex-direction: row;
-  justify-content: space-between; 
+  justify-content: space-between;
 }
 
 .voting__message-box {
@@ -404,4 +408,36 @@ main {
 
 .ranking {
   width: 25%;
+}
+
+.ranking__heading {
+  color: var(--cl-dark-blue);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  height: 50px;
+  padding: 0.75rem 1.5rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  width: 100%;
+}
+
+.ranking__item {
+  align-items: center;
+  background: white;
+  border-radius: 5px;
+  box-shadow: var(--shadow);
+  color: var(--cl-dark-blue);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  font-style: normal;
+  height: 60px;
+  margin-bottom: 1.5rem;
+  padding: 1rem 1.5rem;
+  width: 100%;
+}
+
+.ranking__number {
+  margin-left: auto;
 }

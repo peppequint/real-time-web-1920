@@ -8,13 +8,20 @@ io.on('connection', (socket) => {
     socket.join(user.room);
 
     console.log(user.room);
+    console.log(user.username);
 
-    socket.on('clicked song', (id) => {
-      const title = id.title;
-      const artist = id.artist;
+    socket.on('clicked song', (track) => {
+      console.log(track);
+
+      const title = track.title;
+      const artist = track.artist;
+      const id = track.id;
+      const rating = 0;
 
       socket.emit('server message', `You added ${title} to the vote list.`);
-      io.in(user.room).emit('vote message', { title, artist });
+      socket.to(user.room).emit('server message', `${user.username} added ${title} to the vote list.`);
+      io.in(user.room).emit('vote message', { title, artist, rating, id });
+      // io.in(user.room).emit('track list', { title, artist });
     });
 
     socket.on('chat message', (message) => {

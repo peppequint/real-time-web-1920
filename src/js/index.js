@@ -17,12 +17,16 @@ const votingList = document.querySelector('.voting__list');
 const messageVoting = document.getElementById('voting__form');
 const messageInput = document.querySelector('.voting__message');
 
+const upvote = document.getElementById('voting__up');
+const downvote = document.getElementById('voting__down');
+
+const rankingList = document.querySelector('.ranking__list');
+
 const { username, room } = Qs.parse(location.search, {
   ignoreQueryPrefix: true,
 });
 
 console.log(username, room);
-
 
 socket.emit('join room', { username, room });
 
@@ -38,18 +42,28 @@ socket.on('server message', (message) => {
 });
 
 socket.on('vote message', (data) => {
-  const li = document.createElement('li');
-  const title = `<span class="voting__track">${data.title}</span>`;
-  const artist = `<span class="voting__artist">${data.artist}</span>`;
+  console.log(data);
+
+  const liVote = document.createElement('li');
+  const liRanking = document.createElement('li');
+
+  const rating = `<span class="ranking__number">${data.rating}</span>`;
 
   const bot = `<i class="bot__icon">🗳️ :</i>`;
 
-  const vote = `<div class="voting__container"><button class="voting__btn voting__up">👍🏼</button> or <button class="voting__btn voting__down">👎🏼</button></div>`;
+  const vote = `<div class="voting__container"><button id="voting__up" class="voting__btn">👍🏼</button> or <button id="voting__down" class="voting__btn">👎🏼</button></div>`;
 
-  li.classList.add('voting__item');
-  li.innerHTML = `${bot}${title} - ${artist} ${vote}`;
+  liVote.classList.add('voting__item');
+  liVote.setAttribute('data-id', data.id);
+  liVote.innerHTML = `${bot}<span class="voting__track">${data.title}</span> - <span class="voting__artist">${data.artist}</span> ${vote}`;
 
-  votingList.append(li);
+  votingList.append(liVote);
+
+  liRanking.classList.add('ranking__item');
+  liRanking.setAttribute('data-id', data.id);
+  liRanking.innerHTML = `<span class="ranking__track">${data.title}</span> - <span class="ranking__artist">${data.artist}</span> ${rating}`;
+
+  rankingList.append(liRanking);
 });
 
 socket.on('chat message', (message) => {
@@ -124,6 +138,8 @@ if (document.body.contains(messageVoting)) {
 if (document.body.contains(usernameSpotify)) {
   socket.emit('new user', usernameSpotify.textContent);
 }
+
+// substring(0, 7)
 
 if (document.body.contains(users)) {
   socket.on('users list', (list) => {

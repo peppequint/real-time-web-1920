@@ -12,16 +12,15 @@
           <h2 class="aside__title">Welcome</h2>
           <span class="aside__username"><%- data.display_name %></span>
         </header>
-        <section class="aside__content">
-          
-        </section>
+        <!-- <section class="aside__content">
+          <ol class="aside__users"></ol>
+        </section> -->
       </aside>
       <section class="content">
         <% genres.forEach(genre => { %>
         <article class="tile">
           <h1 class="tile__title"><%- genre %></h1>
-          <span class="tile__users">8 active users</span>
-          <a class="tile__link" href="/<%- genre %>"><button class="tile__button">Join room</button></a>
+          <a class="tile__link" href="<%- genre %>?username=<%- data.id %>&room=<%- genre %>"><button class="tile__button">Join room</button></a>
         </article>
         <% }) %>
       </section>
