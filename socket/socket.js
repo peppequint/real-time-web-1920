@@ -1,6 +1,8 @@
 const { io } = require('../server');
 const userJoin = require('./../controllers/users');
 
+let counter = 0;
+
 // socket setup
 io.on('connection', (socket) => {
   socket.on('join room', ({ username, room }) => {
@@ -11,7 +13,7 @@ io.on('connection', (socket) => {
     console.log(user.username);
 
     socket.on('clicked song', (track) => {
-      console.log(track);
+      // console.log(track);
 
       const title = track.title;
       const artist = track.artist;
@@ -28,6 +30,18 @@ io.on('connection', (socket) => {
       console.log(message);
       socket.emit('user message', `${message}`);
       socket.broadcast.to(user.room).emit('chat message', `${message}`);
+    });
+
+    socket.on('upvote', (action) => {
+      console.log(action);
+      counter++;
+      io.emit('upvote counter', { response: counter, id: action.id });
+    });
+
+    socket.on('downvote', (action) => {
+      console.log(action);
+      counter--;
+      io.emit('downvote counter', { response: counter, id: action.id });
     });
   });
 

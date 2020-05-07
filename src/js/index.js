@@ -12,13 +12,14 @@ const roomSection = document.querySelector('.results');
 
 const results = document.querySelector('.results');
 
+const votingSection = document.querySelector('.voting');
 const votingList = document.querySelector('.voting__list');
 
 const messageVoting = document.getElementById('voting__form');
 const messageInput = document.querySelector('.voting__message');
 
-const upvote = document.getElementById('voting__up');
-const downvote = document.getElementById('voting__down');
+const upVote = document.querySelectorAll('.voting__up');
+const downVote = document.querySelectorAll('.voting__down');
 
 const rankingList = document.querySelector('.ranking__list');
 
@@ -40,8 +41,6 @@ socket.on('server message', (message) => {
 });
 
 socket.on('vote message', (data) => {
-  console.log(data);
-
   const liVote = document.createElement('li');
   const liRanking = document.createElement('li');
 
@@ -49,7 +48,7 @@ socket.on('vote message', (data) => {
 
   const bot = `<i class="bot__icon">🗳️ :</i>`;
 
-  const vote = `<div class="voting__container"><button id="voting__up" class="voting__btn">👍🏼</button> or <button id="voting__down" class="voting__btn">👎🏼</button></div>`;
+  const vote = `<div class="voting__container"><button id="voting__up" class="voting__btn voting__up">👍🏼</button> or <button id="voting__down" class="voting__btn voting__down">👎🏼</button></div>`;
 
   liVote.classList.add('voting__item');
   liVote.setAttribute('data-id', data.id);
@@ -90,6 +89,20 @@ socket.on('user message', (message) => {
   votingList.scrollTop = votingList.scrollHeight;
 });
 
+socket.on('upvote counter', (action) => {
+  const rankingItem = document.querySelector(`.ranking__item[data-id='${action.id}'] .ranking__number`);
+  console.log(action);
+
+  rankingItem.textContent = action.response;
+});
+
+socket.on('downvote counter', (action) => {
+  const rankingItem = document.querySelector(`.ranking__item[data-id='${action.id}'] .ranking__number`);
+  console.log(action);
+
+  rankingItem.textContent = action.response;
+});
+
 if (document.body.contains(results)) {
   results.addEventListener('click', (e) => {
     if (e.target.classList.contains('track__item')) {
@@ -108,6 +121,42 @@ if (document.body.contains(results)) {
     results.innerHTML = '';
     searchInput.value = '';
   });
+}
+
+if (document.body.contains(votingList)) {
+  votingList.addEventListener('mouseover', (e) => {
+    if (e.target.classList.contains('voting__item') && e.target.hasAttribute('data-id')) {
+      const id = e.target.getAttribute('data-id');
+      const up = e.target.querySelector('.voting__item .voting__up');
+      const down = e.target.querySelector('.voting__item .voting__down');
+
+      // const rankingItem = document.querySelector(`.ranking__item[data-id='${id}']`);
+
+      up.addEventListener('click', () => {
+        socket.emit('upvote', { action: 'Upvote track', id: id });
+      });
+
+      down.addEventListener('click', () => {
+        socket.emit('downvote', { action: 'Downvote track', id: id });
+      });
+
+      // down.addEventListener(
+      //   'click',
+      //   (e) => {
+      //     downer--;
+      //     console.log(downer);
+
+      //     return;
+      //   },
+      //   { once: true }
+      // );
+    }
+  });
+
+  // votingSection.addEventListener('mouseout', (e) => {
+  //   upper = 0;
+  //   downer = 0;
+  // });
 }
 
 if (document.body.contains(searchInput)) {
