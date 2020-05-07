@@ -24,7 +24,7 @@ async function rooms(req, res) {
 
     const profileObject = {
       name: data.display_name,
-      img: data.images[0].url,
+      img: data.images[0].url ? data.images[0].url : 'undefined',
       id: data.id,
     };
 
