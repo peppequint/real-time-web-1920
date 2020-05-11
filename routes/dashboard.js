@@ -22,9 +22,6 @@ async function rooms(req, res) {
 
     const data = await getProfile.json();
 
-    console.log(data);
-    
-    
     const profileObject = {
       name: data.display_name,
       img: data.images[0] ? data.images[0].url : `https://developer.spotify.com/assets/branding-guidelines/icon4@2x.png`,

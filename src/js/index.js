@@ -44,7 +44,7 @@ socket.on('vote message', (data) => {
   const liVote = document.createElement('li');
   const liRanking = document.createElement('li');
 
-  const rating = `<span class="ranking__number">${data.rating}</span>`;
+  const rating = `<span class="ranking__number"></span>`;
 
   const bot = `<i class="bot__icon">🗳️ :</i>`;
 
@@ -90,17 +90,17 @@ socket.on('user message', (message) => {
 });
 
 socket.on('upvote counter', (action) => {
-  const rankingItem = document.querySelector(`.ranking__item[data-id='${action.id}'] .ranking__number`);
-  console.log(action);
-
-  rankingItem.textContent = action.response;
+  for (let [key, value] of Object.entries(action)) {
+    let rankingItem = document.querySelector(`.ranking__item[data-id='${key}'] .ranking__number`);
+    rankingItem.innerHTML = value;
+  }
 });
 
 socket.on('downvote counter', (action) => {
-  const rankingItem = document.querySelector(`.ranking__item[data-id='${action.id}'] .ranking__number`);
-  console.log(action);
-
-  rankingItem.textContent = action.response;
+  for (let [key, value] of Object.entries(action)) {
+    let rankingItem = document.querySelector(`.ranking__item[data-id='${key}'] .ranking__number`);
+    rankingItem.innerHTML = value;
+  }
 });
 
 if (document.body.contains(results)) {
