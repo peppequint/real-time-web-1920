@@ -14,6 +14,7 @@ const results = document.querySelector('.results');
 
 const votingSection = document.querySelector('.voting');
 const votingList = document.querySelector('.voting__list');
+const votingContainer = document.querySelectorAll('.voting__container');
 
 const messageVoting = document.getElementById('voting__form');
 const messageInput = document.querySelector('.voting__message');
@@ -48,7 +49,7 @@ socket.on('vote message', (data) => {
 
   const bot = `<i class="bot__icon">🗳️ :</i>`;
 
-  const vote = `<div class="voting__container"><button id="voting__up" class="voting__btn voting__up">👍🏼</button> or <button id="voting__down" class="voting__btn voting__down">👎🏼</button></div>`;
+  const vote = `<div class="voting__container"><button id="voting__up" class="voting__btn voting__up" onclick="upVoteTrack(this); this.onclick=null;">👍🏼</button> or <button id="voting__down" class="voting__btn voting__down" onclick="downVoteTrack(this); this.onclick=null;">👎🏼</button></div>`;
 
   liVote.classList.add('voting__item');
   liVote.setAttribute('data-id', data.id);
@@ -91,15 +92,21 @@ socket.on('user message', (message) => {
 
 socket.on('upvote counter', (action) => {
   for (let [key, value] of Object.entries(action)) {
-    let rankingItem = document.querySelector(`.ranking__item[data-id='${key}'] .ranking__number`);
-    rankingItem.innerHTML = value;
+    let rankingItem = document.querySelector(`.ranking__item[data-id='${key}']`)
+    let rankingItemNumber = document.querySelector(`.ranking__item[data-id='${key}'] .ranking__number`);
+
+    rankingItem.setAttribute('data-value', value);
+    rankingItemNumber.innerHTML = value;
   }
 });
 
 socket.on('downvote counter', (action) => {
   for (let [key, value] of Object.entries(action)) {
-    let rankingItem = document.querySelector(`.ranking__item[data-id='${key}'] .ranking__number`);
-    rankingItem.innerHTML = value;
+    let rankingItem = document.querySelector(`.ranking__item[data-id='${key}']`)
+    let rankingItemNumber = document.querySelector(`.ranking__item[data-id='${key}'] .ranking__number`);
+
+    rankingItem.setAttribute('data-value', value);
+    rankingItemNumber.innerHTML = value;
   }
 });
 
@@ -123,49 +130,12 @@ if (document.body.contains(results)) {
   });
 }
 
-if (document.body.contains(votingList)) {
-  votingList.addEventListener('mouseover', (e) => {
-    if (e.target.classList.contains('voting__item') && e.target.hasAttribute('data-id')) {
-      const id = e.target.getAttribute('data-id');
-      const up = e.target.querySelector('.voting__item .voting__up');
-      const down = e.target.querySelector('.voting__item .voting__down');
-
-      // const rankingItem = document.querySelector(`.ranking__item[data-id='${id}']`);
-
-      up.addEventListener('click', () => {
-        socket.emit('upvote', { action: 'Upvote track', id: id });
-      });
-
-      down.addEventListener('click', () => {
-        socket.emit('downvote', { action: 'Downvote track', id: id });
-      });
-
-      // down.addEventListener(
-      //   'click',
-      //   (e) => {
-      //     downer--;
-      //     console.log(downer);
-
-      //     return;
-      //   },
-      //   { once: true }
-      // );
-    }
-  });
-
-  // votingSection.addEventListener('mouseout', (e) => {
-  //   upper = 0;
-  //   downer = 0;
-  // });
-}
-
 if (document.body.contains(searchInput)) {
   searchInput.addEventListener('input', (e) => {
     e.preventDefault();
 
     const query = e.target.value;
     const url = searchForm.getAttribute('action');
-    // history.replaceState({}, '', `/search?query=${query}`);
 
     fetch(`${url}?query=${query}&async=true`)
       .then((res) => res.text())
@@ -192,4 +162,18 @@ if (document.body.contains(users)) {
   socket.on('users list', (list) => {
     console.log('Users list: ', list);
   });
+}
+
+function upVoteTrack(el) {
+  const item = el.closest('.voting__item');
+  const id = item.getAttribute('data-id');
+
+  socket.emit('upvote', { action: 'Upvote track', id: id });
+}
+
+function downVoteTrack(el) {
+  const item = el.closest('.voting__item');
+  const id = item.getAttribute('data-id');
+
+  socket.emit('downvote', { action: 'Downvote track', id: id });
 }

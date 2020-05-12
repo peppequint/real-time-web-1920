@@ -63,7 +63,7 @@ header,
 main,
 footer {
   margin: 0 auto;
-  max-width: 1440px;
+  max-width: 1820px;
   width: 100%;
 }
 
@@ -335,8 +335,10 @@ main {
 }
 
 .bot__icon {
+  color: var(--cl-dark-blue);
   font-size: 1rem;
   font-style: normal;
+  font-weight: 700;
   margin-right: 1rem;
 }
 
