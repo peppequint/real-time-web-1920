@@ -12,7 +12,9 @@
 
 ## Table of contents
 - [Install](#install)
-- [Wiki](#wiki)
+- [API](#api)
+- [Data life cycle](#data-life-cycle)
+- [Events](#events)
 - [Status](#status)
 - [Sources](#sources)
 
@@ -279,8 +281,9 @@ socket.on('chat message', (message) => {
 Work in progress! There are a plenty of things that needs to be done in order to make this a finished project.
 
 Things that I wanted to achieve, but didn't succeed: 
-- [ ] Voting system via sockets
+- [x] Voting system via sockets
 - [ ] Max of users in a room
+- [ ] Manual create a room
 - [ ] Adding a database
 - [ ] Offline support
 - [ ] Create your own room
