@@ -1,4 +1,3 @@
-<h1 class="results__heading">Search results:</h1>
 <% if (data === undefined) { %>
 <p class="results__note">There are no results!</p>
 <% } else { %>
@@ -7,6 +6,9 @@
   <li class="track__item" data-id="<%- track.id %>">
     <p class="track__name"><%- track.title %></p>
     <p class="track__artist"><%- track.artist %></p>
+    <button class="track__add" onclick="addTrack(this)">
+      ➕
+    </button>
   </li>
   <% }) %>
 </ul>
