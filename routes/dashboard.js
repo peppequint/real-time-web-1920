@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 
-let genres = ['deep house', 'techno', 'tech house', 'minimal', 'uk house', 'disco'];
+let genres = ['deep house', 'tech house', 'uk house', 'chicago house', 'detroit house', 'disco', 'techno', 'minimal'];
 
 async function rooms(req, res) {
   const token = req.cookies.access_token;
