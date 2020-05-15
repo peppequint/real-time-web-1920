@@ -8,9 +8,7 @@ const searchForm = document.querySelector('.search__form');
 const searchInput = document.getElementById('search__input-song');
 const searchButton = document.querySelector('.search__button');
 
-const roomSection = document.querySelector('.results');
-
-const results = document.querySelector('.results');
+const searchResults = document.querySelector('.search__results');
 
 const votingSection = document.querySelector('.voting');
 const votingList = document.querySelector('.voting__list');
@@ -47,7 +45,7 @@ socket.on('vote message', (data) => {
 
   const rating = `<span class="ranking__number"></span>`;
 
-  const bot = `<i class="bot__icon">🗳️ :</i>`;
+  const bot = `<i class="bot__icon">📻 :</i>`;
 
   const vote = `<div class="voting__container"><button id="voting__up" class="voting__btn voting__up" onclick="upVoteTrack(this); this.onclick=null;">👍🏼</button> or <button id="voting__down" class="voting__btn voting__down" onclick="downVoteTrack(this); this.onclick=null;">👎🏼</button></div>`;
 
@@ -59,18 +57,20 @@ socket.on('vote message', (data) => {
 
   liRanking.classList.add('ranking__item');
   liRanking.setAttribute('data-id', data.id);
-  liRanking.innerHTML = `<span class="ranking__track">${data.title}</span> - <span class="ranking__artist">${data.artist}</span> ${rating}`;
+  liRanking.innerHTML = `<p class="ranking__track">${data.title}</p><p class="ranking__artist">${data.artist}</p> ${rating}`;
 
   rankingList.append(liRanking);
 });
 
-socket.on('chat message', (message) => {
+socket.on('chat message', (data) => {
+  console.log(data);
+
   const li = document.createElement('li');
 
-  const user = `<i class="bot__icon">Someone 👂 :</i>`;
+  const user = `<i class="bot__icon">${data.username} 🎶 :</i>`;
 
   li.classList.add('voting__item');
-  li.innerHTML = `${user}${message}`;
+  li.innerHTML = `${user}${data.message}`;
 
   votingList.append(li);
 
@@ -80,7 +80,7 @@ socket.on('chat message', (message) => {
 socket.on('user message', (message) => {
   const li = document.createElement('li');
 
-  const user = `<i class="bot__icon">You 🗣️ :</i>`;
+  const user = `<i class="bot__icon">You 🎵 :</i>`;
 
   li.classList.add('voting__item');
   li.innerHTML = `${user}${message}`;
@@ -92,7 +92,7 @@ socket.on('user message', (message) => {
 
 socket.on('upvote counter', (action) => {
   for (let [key, value] of Object.entries(action)) {
-    let rankingItem = document.querySelector(`.ranking__item[data-id='${key}']`)
+    let rankingItem = document.querySelector(`.ranking__item[data-id='${key}']`);
     let rankingItemNumber = document.querySelector(`.ranking__item[data-id='${key}'] .ranking__number`);
 
     rankingItem.setAttribute('data-value', value);
@@ -102,33 +102,13 @@ socket.on('upvote counter', (action) => {
 
 socket.on('downvote counter', (action) => {
   for (let [key, value] of Object.entries(action)) {
-    let rankingItem = document.querySelector(`.ranking__item[data-id='${key}']`)
+    let rankingItem = document.querySelector(`.ranking__item[data-id='${key}']`);
     let rankingItemNumber = document.querySelector(`.ranking__item[data-id='${key}'] .ranking__number`);
 
     rankingItem.setAttribute('data-value', value);
     rankingItemNumber.innerHTML = value;
   }
 });
-
-if (document.body.contains(results)) {
-  results.addEventListener('click', (e) => {
-    if (e.target.classList.contains('track__item')) {
-      const trackId = e.target.getAttribute('data-id');
-      const trackName = e.target.querySelector('.track__name').textContent;
-      const trackArtist = e.target.querySelector('.track__artist').textContent;
-
-      const track = {
-        id: trackId,
-        title: trackName,
-        artist: trackArtist,
-      };
-
-      socket.emit('clicked song', track);
-    }
-    results.innerHTML = '';
-    searchInput.value = '';
-  });
-}
 
 if (document.body.contains(searchInput)) {
   searchInput.addEventListener('input', (e) => {
@@ -139,7 +119,7 @@ if (document.body.contains(searchInput)) {
 
     fetch(`${url}?query=${query}&async=true`)
       .then((res) => res.text())
-      .then((html) => (roomSection.innerHTML = html));
+      .then((html) => (searchResults.innerHTML = html));
   });
 }
 
@@ -156,12 +136,27 @@ if (document.body.contains(usernameSpotify)) {
   socket.emit('new user', usernameSpotify.textContent);
 }
 
-// substring(0, 7)
-
 if (document.body.contains(users)) {
   socket.on('users list', (list) => {
     console.log('Users list: ', list);
   });
+}
+
+function addTrack(el) {
+  const item = el.closest('.track__item');
+  const title = item.querySelector('.track__name').textContent;
+  const artist = item.querySelector('.track__artist').textContent;
+  const id = item.getAttribute('data-id');
+
+  const track = {
+    id: id,
+    title: title,
+    artist: artist,
+  };
+
+  console.log(track);
+  socket.emit('clicked song', track);
+  searchResults.innerHTML = '';
 }
 
 function upVoteTrack(el) {
