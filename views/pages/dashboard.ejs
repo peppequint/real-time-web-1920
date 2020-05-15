@@ -20,7 +20,7 @@
         <% genres.forEach(genre => { %>
         <article class="tile">
           <h1 class="tile__title"><%- genre %></h1>
-          <a class="tile__link" href="<%- genre %>?username=<%- data.id %>&room=<%- genre %>"><button class="tile__button">Join room</button></a>
+          <a class="tile__link" href="<%- genre %>?username=<%- data.id %>&room=<%- genre %>"><button class="tile__button"><span>🚪</span> Join room</button></a>
         </article>
         <% }) %>
       </section>

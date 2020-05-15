@@ -7,10 +7,11 @@
     <%- include ('./../partials/header') %>
     <main class="container container__room">
       <aside class="search">
+        <a href="/dashboard"><h2 class="search__heading">◀️ Leave room!</h2></a>
         <form class="search__form" method="get" action="/search">
           <input class="search__input" id="search__input-song" type="text" name="search" placeholder="Search for a track.." autocomplete="off" />
         </form>
-        <section class="results"></section>
+        <article class="search__results"></article>
       </aside>
       <section class="voting">
         <h2 class="voting__subtitle">
@@ -22,12 +23,12 @@
         <footer class="voting__message-box">
           <form id="voting__form" action="">
             <input type="text" autocomplete="off" class="voting__message" placeholder="Send a message...">
-            <button class="voting__send">Send</button>
+            <button class="voting__send">📡</button>
           </form>
         </footer>
       </section>
       <section class="ranking">
-        <h2 class="ranking__heading">Current ranking</h2>
+        <h2 class="ranking__heading">Current ranking <span class="ranking__score">💯 Score</span></h2>
         <ul class="ranking__list"></ul>
       </section>
     </main>
